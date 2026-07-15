@@ -19,13 +19,13 @@ export default function Sidebar() {
 
       <p><Link href="/dashboard">Dashboard</Link></p>
 
-      <p><Link href="#">Students</Link></p>
+      <p><Link href="/students">Students</Link></p>
 
-      <p><Link href="#">Teachers</Link></p>
+      <p><Link href="/teachers">Teachers</Link></p>
 
-      <p><Link href="#">Parents</Link></p>
+      <p><Link href="/classes">Classes</Link></p>
 
-      <p><Link href="#">Classes</Link></p>
+
 
       <p><Link href="#">Subjects</Link></p>
 

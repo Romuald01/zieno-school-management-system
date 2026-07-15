@@ -1,0 +1,94 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+
+model Role {
+  id          String   @id @default(cuid())
+  name        String   @unique
+  description String?
+
+  users User[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model User {
+  id        String   @id @default(cuid())
+  firstName String
+  lastName  String
+  email     String   @unique
+  phone     String?
+  password  String
+  isActive  Boolean  @default(true)
+
+  roleId String
+  role   Role @relation(fields: [roleId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model AcademicSession {
+  id        String   @id @default(cuid())
+  name      String   @unique
+  isCurrent Boolean  @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model AcademicTerm {
+  id        String   @id @default(cuid())
+  name      String
+  isCurrent Boolean  @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+model SchoolClass {
+  id        String   @id @default(cuid())
+  name      String
+  section   String?
+
+  students Student[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+model Student {
+  id            String   @id @default(cuid())
+
+  admissionNo   String   @unique
+
+  firstName     String
+  lastName      String
+  otherName     String?
+
+  gender        String
+
+  dateOfBirth   DateTime?
+
+  email         String?  @unique
+  phone         String?
+
+  address       String?
+
+  parentName    String
+  parentPhone   String
+
+  isActive      Boolean  @default(true)
+
+  classId       String?
+  schoolClass   SchoolClass? @relation(fields: [classId], references: [id])
+
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}

@@ -66,23 +66,43 @@ async function saveStudent() {
 }
 
   return (
-    <div
-      style={{
-        marginBottom: 30,
-        padding: 20,
-        border: '1px solid #ddd',
-        borderRadius: 8,
-      }}
-    >
-      <h3>Add Student</h3>
+ <div
+  style={{
+    background: '#fff',
+    padding: 25,
+    borderRadius: 12,
+    boxShadow: '0 5px 20px rgba(0,0,0,.08)',
+    marginBottom: 30,
+  }}
+>
+      <h2
+        style={{
+          marginBottom: 20,
+          color: '#1e293b',
+        }}
+      >
+        {student ? 'Edit Student' : 'Add Student'}
+    </h2>
 
       <input
-        placeholder="Admission No"
-        value={form.admissionNo}
-        onChange={(e) =>
-          setForm({ ...form, admissionNo: e.target.value })
-        }
-      />
+  placeholder="Admission No"
+  value={form.admissionNo}
+  onChange={(e) =>
+    setForm({
+      ...form,
+      admissionNo: e.target.value,
+    })
+  }
+  style={{
+    width: '100%',
+    padding: '12px',
+    border: '1px solid #d1d5db',
+    borderRadius: 8,
+    marginBottom: 15,
+    fontSize: 15,
+    boxSizing: 'border-box',
+  }}
+/>
 
       <br />
       <br />
@@ -93,7 +113,16 @@ async function saveStudent() {
         onChange={(e) =>
           setForm({ ...form, firstName: e.target.value })
         }
-      />
+      style={{
+        width: '100%',
+        padding: '12px',
+        border: '1px solid #d1d5db',
+        borderRadius: 8,
+        marginBottom: 15,
+        fontSize: 15,
+        boxSizing: 'border-box',
+      }}
+/>
 
       <br />
       <br />
@@ -104,6 +133,15 @@ async function saveStudent() {
         onChange={(e) =>
           setForm({ ...form, lastName: e.target.value })
         }
+         style={{
+    width: '100%',
+    padding: '12px',
+    border: '1px solid #d1d5db',
+    borderRadius: 8,
+    marginBottom: 15,
+    fontSize: 15,
+    boxSizing: 'border-box',
+  }}
       />
 
       <br />
@@ -115,6 +153,15 @@ async function saveStudent() {
         onChange={(e) =>
           setForm({ ...form, gender: e.target.value })
         }
+         style={{
+    width: '100%',
+    padding: '12px',
+    border: '1px solid #d1d5db',
+    borderRadius: 8,
+    marginBottom: 15,
+    fontSize: 15,
+    boxSizing: 'border-box',
+  }}
       />
 
       <br />
@@ -126,6 +173,15 @@ async function saveStudent() {
         onChange={(e) =>
           setForm({ ...form, parentName: e.target.value })
         }
+         style={{
+    width: '100%',
+    padding: '12px',
+    border: '1px solid #d1d5db',
+    borderRadius: 8,
+    marginBottom: 15,
+    fontSize: 15,
+    boxSizing: 'border-box',
+  }}
       />
 
       <br />
@@ -137,12 +193,32 @@ async function saveStudent() {
         onChange={(e) =>
           setForm({ ...form, parentPhone: e.target.value })
         }
+         style={{
+    width: '100%',
+    padding: '12px',
+    border: '1px solid #d1d5db',
+    borderRadius: 8,
+    marginBottom: 15,
+    fontSize: 15,
+    boxSizing: 'border-box',
+  }}
       />
 
       <br />
       <br />
-
-    <button onClick={saveStudent}>
+<button
+  onClick={saveStudent}
+  style={{
+    background: '#2563eb',
+    color: 'white',
+    border: 'none',
+    padding: '12px 24px',
+    borderRadius: 8,
+    cursor: 'pointer',
+    fontWeight: 'bold',
+    fontSize: 15,
+  }}
+>
   {student ? 'Update Student' : 'Save Student'}
 </button>
     </div>

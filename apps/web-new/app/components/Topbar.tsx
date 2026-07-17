@@ -1,36 +1,59 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-
 export default function Topbar() {
-  const [user, setUser] = useState<any>(null);
-
-  useEffect(() => {
-    const storedUser = localStorage.getItem('user');
-
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
-    }
-  }, []);
-
   return (
     <div
       style={{
-        background: 'white',
-        padding: 20,
+        background: '#fff',
+        padding: '18px 30px',
         display: 'flex',
         justifyContent: 'space-between',
-        boxShadow: '0 2px 10px rgba(0,0,0,.1)',
+        alignItems: 'center',
+        boxShadow: '0 2px 10px rgba(0,0,0,.08)',
       }}
     >
-      <h2>Dashboard</h2>
-
       <div>
-        <b>{user?.firstName}</b>
+        <h2
+          style={{
+            margin: 0,
+            color: '#1e293b',
+          }}
+        >
+          School Management System
+        </h2>
 
-        <br />
+        <small
+          style={{
+            color: '#64748b',
+          }}
+        >
+          Manage your school with ease
+        </small>
+      </div>
 
-        {user?.role}
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: 15,
+        }}
+      >
+        <div
+          style={{
+            width: 45,
+            height: 45,
+            borderRadius: '50%',
+            background: '#2563eb',
+            color: '#fff',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            fontWeight: 'bold',
+            fontSize: 18,
+          }}
+        >
+          A
+        </div>
       </div>
     </div>
   );

@@ -12,35 +12,47 @@ export default function Dashboard() {
   const router = useRouter();
 
   const [user, setUser] = useState<any>(null);
+
   const [studentCount, setStudentCount] = useState(0);
-useEffect(() => {
-  const token = localStorage.getItem('accessToken');
+  const [teacherCount, setTeacherCount] = useState(0);
+  const [classCount, setClassCount] = useState(0);
+  const [subjectCount, setSubjectCount] = useState(0);
+  const [today, setToday] = useState('');
+  useEffect(() => {
+    const token = localStorage.getItem('accessToken');
 
-  if (!token) {
-    router.push('/login');
-    return;
-  }
-
-  const storedUser = localStorage.getItem('user');
-
-  if (storedUser) {
-    setUser(JSON.parse(storedUser));
-  }
-
-  async function loadStudentCount() {
-    try {
-      const response = await axios.get(
-        'http://localhost:3001/students'
-      );
-
-      setStudentCount(response.data.length);
-    } catch (error) {
-      console.error(error);
+    if (!token) {
+      router.push('/login');
+      return;
     }
-  }
 
-  loadStudentCount();
-}, [router]);
+    const storedUser = localStorage.getItem('user');
+
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
+
+    setToday(new Date().toLocaleDateString('en-GB'));
+    async function loadDashboardCounts() {
+      try {
+        const [students, teachers, classes, subjects] = await Promise.all([
+          axios.get('http://localhost:3001/students'),
+          axios.get('http://localhost:3001/teachers'),
+          axios.get('http://localhost:3001/classes'),
+          axios.get('http://localhost:3001/subjects'),
+        ]);
+
+        setStudentCount(students.data.length);
+        setTeacherCount(teachers.data.length);
+        setClassCount(classes.data.length);
+        setSubjectCount(subjects.data.length);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    loadDashboardCounts();
+  }, [router]);
 
   return (
     <div
@@ -52,186 +64,249 @@ useEffect(() => {
     >
       <Sidebar />
 
-      <div
-        style={{
-          flex: 1,
-        }}
-      >
+      <div style={{ flex: 1 }}>
         <Topbar />
 
-        <div
-          style={{
-            padding: 30,
-          }}
-        >
-  <div
-  style={{
-    marginBottom: 30,
-  }}
->
-  <h1
-    style={{
-      fontSize: 34,
-      fontWeight: 'bold',
-      marginBottom: 8,
-    }}
-  >
-    Dashboard
-  </h1>
+        <div style={{ padding: 30 }}>
+          {/* Header */}
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              marginBottom: 30,
+              background: '#fff',
+              padding: 25,
+              borderRadius: 15,
+              boxShadow: '0 5px 15px rgba(0,0,0,.06)',
+            }}
+          >
+            <div>
+              <h1
+                style={{
+                  margin: 0,
+                  fontSize: 34,
+                  color: '#0f172a',
+                }}
+              >
+                Welcome back, {user?.firstName || 'Admin'} 👋
+              </h1>
 
-  <p
-    style={{
-      color: '#666',
-      fontSize: 16,
-    }}
-  >
-  Welcome back, {user?.firstName || 'Admin'} 👋
-  </p>
-</div>
+              <p
+                style={{
+                  color: '#64748b',
+                  marginTop: 10,
+                }}
+              >
+                School Management Dashboard
+              </p>
+            </div>
 
-  <div
-  style={{
-    display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit,minmax(220px,1fr))',
-    gap: 20,
-  }}
->
- <StatCard
-  title="Students"
-  value={studentCount.toString()}
-  color="#2563eb"
-/>
+            <div style={{ textAlign: 'right' }}>
+              <h3 style={{ margin: 0 }}>
+                📅 {new Date().toLocaleDateString()}
+              </h3>
 
-  <StatCard
-    title="Teachers"
-    value="18"
-    color="#16a34a"
-  />
+              <p style={{ color: '#64748b' }}>Have a productive day.</p>
+            </div>
+          </div>
 
-  <StatCard
-    title="Classes"
-    value="10"
-    color="#ea580c"
-  />
+          {/* Statistics */}
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit,minmax(250px,1fr))',
+              gap: 20,
+              marginBottom: 30,
+            }}
+          >
+            <StatCard
+              title="Students"
+              value={studentCount.toString()}
+              icon="👨‍🎓"
+              color="#2563eb"
+            />
 
-  <StatCard
-    title="Revenue"
-    value="₦2.8M"
-    color="#9333ea"
-  />
-</div>
+            <StatCard
+              title="Teachers"
+              value={teacherCount.toString()}
+              icon="👩‍🏫"
+              color="#16a34a"
+            />
 
-<div
-  style={{
-    background: "white",
-    padding: 25,
-    borderRadius: 10,
-    marginTop: 30,
-    boxShadow: "0 3px 10px rgba(0,0,0,.08)",
-  }}
->
-  <h2>Quick Actions</h2>
+            <StatCard
+              title="Classes"
+              value={classCount.toString()}
+              icon="🏫"
+              color="#ea580c"
+            />
 
-  <div
-    style={{
-      display: "flex",
-      gap: 15,
-      marginTop: 20,
-      flexWrap:'wrap',
-    }}
-  >
-<button
-  style={{
-    background: '#2563eb',
-    color: 'white',
-    border: 'none',
-    padding: '12px 20px',
-    borderRadius: 8,
-    cursor: 'pointer',
-    fontWeight: 'bold',
-  }}
->
-  Add Student
-</button>
+            <StatCard
+              title="Subjects"
+              value={subjectCount.toString()}
+              icon="📚"
+              color="#9333ea"
+            />
+          </div>
 
-    <button
-      style={{
-        background: '#16a34a',
-        color: 'white',
-        border: 'none',
-        padding: '12px 20px',
-        borderRadius: 8,
-        cursor: 'pointer',
-        fontWeight: 'bold',
-      }}
-    >
-      Add Teacher
-    </button>
+          {/* Quick Actions */}
+          <div
+            style={{
+              background: '#fff',
+              padding: 25,
+              borderRadius: 15,
+              boxShadow: '0 8px 25px rgba(0,0,0,.08)',
+              marginBottom: 30,
+            }}
+          >
+            <div
+              style={{
+                marginTop: 35,
+                background: '#fff',
+                borderRadius: 16,
+                padding: 25,
+                boxShadow: '0 5px 15px rgba(0,0,0,.08)',
+              }}
+            >
+              <h2
+                style={{
+                  marginBottom: 20,
+                }}
+              >
+                Quick Actions
+              </h2>
 
-    <button
-      style={{
-        background: '#ea580c',
-        color: 'white',
-        border: 'none',
-        padding: '12px 20px',
-        borderRadius: 8,
-        cursor: 'pointer',
-        fontWeight: 'bold',
-      }}
-    >
-      Create Class
-    </button>
+              <div
+                style={{
+                  display: 'grid',
+                  gridTemplateColumns: 'repeat(auto-fit,minmax(180px,1fr))',
+                  gap: 15,
+                }}
+              >
+                <button
+                  onClick={() => router.push('/students')}
+                  style={{
+                    background: '#2563eb',
+                    color: '#fff',
+                    border: 'none',
+                    padding: '15px',
+                    borderRadius: 12,
+                    cursor: 'pointer',
+                    fontWeight: 'bold',
+                    fontSize: 16,
+                    transition: '.3s',
+                  }}
+                >
+                  👨‍🎓 Add Student
+                </button>
+                <button
+                  onClick={() => router.push('/teachers')}
+                  style={{
+                    background: '#16a34a',
+                    color: '#fff',
+                    border: 'none',
+                    padding: '15px',
+                    borderRadius: 12,
+                    cursor: 'pointer',
+                    fontWeight: 'bold',
+                    fontSize: 16,
+                  }}
+                >
+                  👩‍🏫 Add Teacher
+                </button>
 
-    <button
-      style={{
-        background: '#9333ea',
-        color: 'white',
-        border: 'none',
-        padding: '12px 20px',
-        borderRadius: 8,
-        cursor: 'pointer',
-        fontWeight: 'bold',
-      }}
-    >
-      Record Attendance
-    </button>
-  </div>
-</div>
-<div
-  style={{
-    background: 'white',
-    padding: 25,
-    borderRadius: 10,
-    marginTop: 30,
-    boxShadow: '0 3px 10px rgba(0,0,0,.08)',
-  }}
->
-  <h2>Recent Activities</h2>
+                <button
+                  onClick={() => router.push('/classes')}
+                  style={{
+                    background: '#ea580c',
+                    color: '#fff',
+                    border: 'none',
+                    padding: '15px',
+                    borderRadius: 12,
+                    cursor: 'pointer',
+                    fontWeight: 'bold',
+                    fontSize: 16,
+                  }}
+                >
+                  🏫 Create Class
+                </button>
 
-  <ul
-    style={{
-      listStyle: 'none',
-      padding: 0,
-      marginTop: 20,
-    }}
-  >
-    <li style={{ padding: '10px 0' }}>
-      ✅ John Doe added as a student
-    </li>
+                <button
+                  style={{
+                    background: '#9333ea',
+                    color: '#fff',
+                    border: 'none',
+                    padding: '15px',
+                    borderRadius: 12,
+                    cursor: 'pointer',
+                    fontWeight: 'bold',
+                    fontSize: 16,
+                  }}
+                >
+                  📅 Record Attendance
+                </button>
+              </div>
+            </div>
+            <div
+              style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(3,1fr)',
+                gap: 20,
+                marginTop: 25,
+              }}
+            >
+              <div
+                style={{
+                  background: '#fff',
+                  padding: 20,
+                  borderRadius: 15,
+                  boxShadow: '0 5px 15px rgba(0,0,0,.08)',
+                }}
+              >
+                <h3>Total Users</h3>
 
-    <li style={{ padding: '10px 0' }}>
-      📚 Mathematics class created
-    </li>
+                <h1>{studentCount + teacherCount}</h1>
+              </div>
 
-    <li style={{ padding: '10px 0' }}>
-      📅 Attendance recorded
-    </li>
+              <div
+                style={{
+                  background: '#fff',
+                  padding: 20,
+                  borderRadius: 15,
+                  boxShadow: '0 5px 15px rgba(0,0,0,.08)',
+                }}
+              >
+                <h3>Current Session</h3>
 
-    <li style={{ padding: '10px 0' }}>
-      👨‍🏫 New teacher account created
-    </li>
-  </ul>
-</div>
+                <h2>2025 / 2026</h2>
+              </div>
+              <div
+                style={{
+                  background: '#fff',
+                  padding: 20,
+                  borderRadius: 15,
+                  boxShadow: '0 5px 15px rgba(0,0,0,.08)',
+                }}
+              >
+                <h3>System Status</h3>
+
+                <h2
+                  style={{
+                    color: '#16a34a',
+                  }}
+                >
+                  ● Online
+                </h2>
+              </div>
+            </div>
+
+            <h2>Today's Summary</h2>
+
+            <p>🎓 Total Students: {studentCount}</p>
+            <p>👩‍🏫 Total Teachers: {teacherCount}</p>
+            <p>🏫 Total Classes: {classCount}</p>
+            <p>📚 Total Subjects: {subjectCount}</p>
+          </div>
         </div>
       </div>
     </div>

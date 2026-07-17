@@ -5,7 +5,7 @@ import axios from 'axios';
 import Sidebar from '../components/Sidebar';
 import Topbar from '../components/Topbar';
 import StudentForm from '../components/StudentForm';
-
+import ActionButton from '../components/ActionButton';
 
 export default function StudentsPage() {
     
@@ -178,37 +178,20 @@ async function deleteStudent(id: string) {
           textAlign: 'center',
         }}
       >
-     <button
+<ActionButton
+  text="Edit"
+  color="#2563eb"
   onClick={() => {
     setEditingStudent(student);
     setShowForm(true);
   }}
-  style={{
-    background: '#2563eb',
-    color: 'white',
-    border: 'none',
-    padding: '8px 14px',
-    borderRadius: 6,
-    marginRight: 8,
-    cursor: 'pointer',
-  }}
->
-  Edit
-</button>
+/>
 
-        <button
-          onClick={() => deleteStudent(student.id)}
-          style={{
-            background: '#dc2626',
-            color: 'white',
-            border: 'none',
-            padding: '8px 14px',
-            borderRadius: 6,
-            cursor: 'pointer',
-          }}
-        >
-          Delete
-        </button>
+<ActionButton
+  text="Delete"
+  color="#dc2626"
+  onClick={() => deleteStudent(student.id)}
+/>
       </td>
     </tr>
   ))}

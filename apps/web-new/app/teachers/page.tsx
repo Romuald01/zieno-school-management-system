@@ -16,7 +16,7 @@ export default function TeachersPage() {
   async function loadTeachers() {
     try {
       const response = await axios.get(
-        `http://localhost:3001/teachers?search=${search}`,
+        `https://zieno-api.onrender.com/teachers?search=${search}`,
       );
 
       setTeachers(response.data);
@@ -30,7 +30,7 @@ export default function TeachersPage() {
 
     if (!confirmDelete) return;
 
-    await axios.delete(`http://localhost:3001/teachers/${id}`);
+    await axios.delete(`https://zieno-api.onrender.com/teachers/${id}`);
 
     loadTeachers();
   }

@@ -24,12 +24,12 @@ const [form, setForm] = useState({
   try {
     if (teacher) {
       await axios.put(
-        `http://localhost:3001/teachers/${teacher.id}`,
+        `https://zieno-api.onrender.com/teachers/${teacher.id}`,
         form
       );
     } else {
       await axios.post(
-        'http://localhost:3001/teachers',
+        'https://zieno-api.onrender.com/teachers',
         form
       );
     }

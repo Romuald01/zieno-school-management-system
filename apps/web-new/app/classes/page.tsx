@@ -17,7 +17,7 @@ export default function ClassesPage() {
   async function loadClasses() {
     try {
       const response = await axios.get(
-        `http://localhost:3001/classes?search=${search}`,
+        `https://zieno-api.onrender.com/classes?search=${search}`,
       );
 
       setClasses(response.data);
@@ -31,7 +31,7 @@ export default function ClassesPage() {
 
     if (!confirmDelete) return;
 
-    await axios.delete(`http://localhost:3001/classes/${id}`);
+    await axios.delete(`https://zieno-api.onrender.com/classes/${id}`);
 
     loadClasses();
   }

@@ -21,12 +21,12 @@ export default function SubjectForm({
     try {
       if (subject) {
         await axios.put(
-          `http://localhost:3001/subjects/${subject.id}`,
+          `https://zieno-api.onrender.com/subjects/${subject.id}`,
           form
         );
       } else {
         await axios.post(
-          'http://localhost:3001/subjects',
+          'https://zieno-api.onrender.com/subjects',
           form
         );
       }

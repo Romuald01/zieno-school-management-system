@@ -16,7 +16,7 @@ export default function SubjectsPage() {
 
   async function loadSubjects() {
     const res = await axios.get(
-      `http://localhost:3001/subjects?search=${search}`
+      `https://zieno-api.onrender.com/subjects?search=${search}`
     );
 
     setSubjects(res.data);
@@ -25,7 +25,7 @@ export default function SubjectsPage() {
   async function deleteSubject(id: string) {
     if (!confirm('Delete this subject?')) return;
 
-    await axios.delete(`http://localhost:3001/subjects/${id}`);
+    await axios.delete(`https://zieno-api.onrender.com/subjects/${id}`);
 
     loadSubjects();
   }

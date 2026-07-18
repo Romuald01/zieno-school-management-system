@@ -36,10 +36,10 @@ export default function Dashboard() {
     async function loadDashboardCounts() {
       try {
         const [students, teachers, classes, subjects] = await Promise.all([
-          axios.get('http://localhost:3001/students'),
-          axios.get('http://localhost:3001/teachers'),
-          axios.get('http://localhost:3001/classes'),
-          axios.get('http://localhost:3001/subjects'),
+          axios.get('https://zieno-api.onrender.com/students'),
+          axios.get('https://zieno-api.onrender.com/teachers'),
+          axios.get('https://zieno-api.onrender.com/classes'),
+          axios.get('https://zieno-api.onrender.com/subjects'),
         ]);
 
         setStudentCount(students.data.length);

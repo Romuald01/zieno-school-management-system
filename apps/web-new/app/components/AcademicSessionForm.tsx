@@ -19,12 +19,12 @@ export default function AcademicSessionForm({
     try {
       if (session) {
         await axios.put(
-          `http://localhost:3001/academic-sessions/${session.id}`,
+          `https://zieno-api.onrender.com/academic-sessions/${session.id}`,
           form
         );
       } else {
         await axios.post(
-          'http://localhost:3001/academic-sessions',
+          'https://zieno-api.onrender.com/academic-sessions',
           form
         );
       }

@@ -39,12 +39,12 @@ async function saveStudent() {
   try {
     if (student) {
       await axios.put(
-        `http://localhost:3001/students/${student.id}`,
+        `https://zieno-api.onrender.com/students/${student.id}`,
         form
       );
     } else {
       await axios.post(
-        'http://localhost:3001/students',
+        'https://zieno-api.onrender.com/students',
         form
       );
     }

@@ -16,7 +16,7 @@ export default function StudentsPage() {
 
   async function loadStudents() {
     try {
-      const response = await axios.get('http://localhost:3001/students');
+      const response = await axios.get('https://zieno-api.onrender.com/students');
       setStudents(response.data);
     } catch (error) {
       console.error(error);
@@ -31,7 +31,7 @@ async function deleteStudent(id: string) {
   if (!confirmDelete) return;
 
   try {
-    await axios.delete(`http://localhost:3001/students/${id}`);
+    await axios.delete(`https://zieno-api.onrender.com/students/${id}`);
     loadStudents();
   } catch (error) {
     console.error(error);

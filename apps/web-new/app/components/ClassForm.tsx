@@ -20,12 +20,12 @@ export default function ClassForm({
     try {
       if (classItem) {
         await axios.put(
-          `http://localhost:3001/classes/${classItem.id}`,
+          `https://zieno-api.onrender.com/classes/${classItem.id}`,
           form
         );
       } else {
         await axios.post(
-          'http://localhost:3001/classes',
+          'https://zieno-api.onrender.com/classes',
           form
         );
       }

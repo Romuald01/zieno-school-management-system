@@ -16,7 +16,7 @@ export default function AcademicSessionsPage() {
   async function loadSessions() {
     try {
       const res = await axios.get(
-        `http://localhost:3001/academic-sessions?search=${search}`
+        `https://zieno-api.onrender.com/academic-sessions?search=${search}`
       );
 
       setSessions(res.data);
@@ -29,7 +29,7 @@ export default function AcademicSessionsPage() {
     if (!confirm('Delete this session?')) return;
 
     await axios.delete(
-      `http://localhost:3001/academic-sessions/${id}`
+      `https://zieno-api.onrender.com/academic-sessions/${id}`
     );
 
     loadSessions();

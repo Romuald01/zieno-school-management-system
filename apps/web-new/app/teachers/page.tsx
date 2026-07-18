@@ -6,6 +6,7 @@ import axios from 'axios';
 import Sidebar from '../components/Sidebar';
 import Topbar from '../components/Topbar';
 import TeacherForm from '../components/TeacherForm';
+import TableContainer from '../components/TableContainer';
 
 export default function TeachersPage() {
   const [teachers, setTeachers] = useState<any[]>([]);
@@ -40,10 +41,21 @@ export default function TeachersPage() {
   }, [search]);
 
   return (
-    <div style={{ display: 'flex' }}>
+   <div
+  style={{
+    display: 'flex',
+    minHeight: '100vh',
+    background: '#f8fafc',
+  }}
+>
       <Sidebar />
 
-      <main style={{ flex: 1 }}>
+      <main
+        style={{
+          flex: 1,
+          overflowX: 'hidden',
+        }}
+      >
         <Topbar />
         <div style={{ padding: 30 }}>
           <h1
@@ -131,12 +143,15 @@ export default function TeachersPage() {
               boxShadow: '0 5px 20px rgba(0,0,0,.08)',
             }}
           >
-            <table
-              style={{
-                width: '100%',
-                borderCollapse: 'collapse',
-              }}
-            >
+         <TableContainer>
+  <table
+    style={{
+      width: '100%',
+      minWidth: 900,
+      borderCollapse: 'collapse',
+      background: 'white',
+    }}
+  >
               <thead>
                 <tr>
                   <th
@@ -289,6 +304,7 @@ export default function TeachersPage() {
                 ))}
               </tbody>
             </table>
+            </TableContainer>
           </div>
         </div>
       </main>

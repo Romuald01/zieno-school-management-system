@@ -7,6 +7,7 @@ import Sidebar from '../components/Sidebar';
 import Topbar from '../components/Topbar';
 import SubjectForm from '../components/SubjectForm';
 import ActionButton from '../components/ActionButton';
+import TableContainer from '../components/TableContainer';
 
 export default function SubjectsPage() {
   const [subjects, setSubjects] = useState<any[]>([]);
@@ -58,7 +59,12 @@ export default function SubjectsPage() {
     >
       <Sidebar />
 
-      <main style={{ flex: 1 }}>
+  <main
+  style={{
+    flex: 1,
+    overflowX: 'hidden',
+  }}
+>
         <Topbar />
 
         <div style={{ padding: 30 }}>

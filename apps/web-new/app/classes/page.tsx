@@ -7,6 +7,7 @@ import Sidebar from '../components/Sidebar';
 import Topbar from '../components/Topbar';
 import ClassForm from '../components/ClassForm';
 import ActionButton from '../components/ActionButton';
+import TableContainer from '../components/TableContainer';
 
 export default function ClassesPage() {
   const [classes, setClasses] = useState<any[]>([]);
@@ -143,12 +144,15 @@ export default function ClassesPage() {
               boxShadow: '0 5px 20px rgba(0,0,0,.08)',
             }}
           >
-            <table
-              style={{
-                width: '100%',
-                borderCollapse: 'collapse',
-              }}
-            >
+        <TableContainer>
+  <table
+    style={{
+      width: '100%',
+      minWidth: 900,
+      borderCollapse: 'collapse',
+      background: 'white',
+    }}
+  >
               <thead>
                 <tr
                   style={{
@@ -276,6 +280,7 @@ export default function ClassesPage() {
                 )}
               </tbody>
             </table>
+            </TableContainer>
           </div>
         </div>
       </main>

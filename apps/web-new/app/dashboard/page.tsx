@@ -64,7 +64,13 @@ export default function Dashboard() {
     >
       <Sidebar />
 
-      <div style={{ flex: 1 }}>
+  <div
+  style={{
+    display: 'flex',
+    minHeight: '100vh',
+    background: '#f8fafc',
+  }}
+>
         <Topbar />
 
         <div style={{ padding: 30 }}>
